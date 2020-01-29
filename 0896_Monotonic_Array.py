@@ -1,16 +1,16 @@
 class Solution:
     def isMonotonic(self, A: List[int]) -> bool:
-        u = 0
-        d = 0
-        p = 0
+        up = 0
+        down = 0
+        prev = 0
         for i, j in enumerate(A):
             if i > 0:
-                if p < j:
-                    u += 1
-                elif p > j:
-                    d += 1
-            if u > 0 and d > 0:
+                if prev < j:
+                    up += 1
+                elif prev > j:
+                    down += 1
+            if up > 0 and down > 0:
                 return False
-            p = j
+            prev = j
         return True
 
