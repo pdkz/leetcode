@@ -19,7 +19,7 @@ class Solution:
         return vals[1]
     
     def traverse(self, node):
-        if node == None:
+        if not node:
             return
         
         self.ht[node.val] = 1
