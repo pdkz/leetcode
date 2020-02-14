@@ -6,5 +6,4 @@ class Solution:
         stack = []
         pairs = {'(':')', '{':'}', '[':']'}
         for bracket in s:
-            
             stack.append(bracket)
