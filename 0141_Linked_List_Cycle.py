@@ -6,6 +6,23 @@
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
+        if head is None:
+            return False
+    
+        slow = head
+        fast = head
+        while(slow is not None):
+            if fast.next is None or fast.next.next is None:
+                return False
+            
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+        
+        
+        """
         node = head
         if node is None:
             return False
@@ -18,3 +35,4 @@ class Solution:
                 return False
             
             nodelist.append(node)
+        """
