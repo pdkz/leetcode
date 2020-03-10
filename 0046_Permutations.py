@@ -32,21 +32,19 @@ def make_permutation(seed, n):
 """
 
 class Solution:
-    def __init__(self):
-        self.result = []
-        self.perm = []
-        
     def permute(self, nums: List[int]) -> List[List[int]]:
-        self.make_permutation(nums, 0)
+        r = []
+        self.make_permutation(nums, [], r)
         return self.result
-    
-    def make_permutation(self, seed, n):
-        if n == len(seed):
-            #print(self.perm)
-            self.result.append(self.perm.copy())
+        
+    def make_permutation(self, nums, l, r):
+        if len(l) == len(nums):
+            r.append(l.copy())
             return
-        for i in seed:
-            if i in self.perm: continue
-            self.perm.append(i)
-            self.make_permutation(seed, n+1)
-            self.perm.pop()
+
+        for n in nums:
+            if n not in l:
+                l.append(n)
+                self.make_permutation(nums, l, r)
+                if len(l) > 0:
+                    l.pop()
