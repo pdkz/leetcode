@@ -1,24 +1,23 @@
 class Solution:
-    def __init__(self):
-        self.tmp = []
-        self.result = []
-        
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        self.find_comb(target, candidates)
-        return self.result
+        res = []
+        candidates.sort()
+        return self.rec(candidates, 0, target, [], res)
         
-    def find_comb(self,t, nums):
+    def rec(self, nums, s, t, tmp, res):
         if t < 0:
             return 
-        for i in nums:
-            if i == t:
-                self.tmp.append(i)
-                ans = sorted(self.tmp)
-                if ans not in self.result:
-                    self.result.append(ans)
-                self.tmp.pop()
-            else:
-                n = t - i
-                self.tmp.append(i)
-                self.find_comb(n, nums)
-                self.tmp.pop()
+        if s == t:
+            res.append(tmp.copy())
+            return
+
+        for n in nums:
+            if s + n > t:
+                return
+            elif len(tmp) > 0 and n < tmp[-1]:
+                continue
+            s += n
+            tmp.append(n)
+            self.rec(nums, s, t, tmp, res)
+            tmp.pop()
+            s -= n
