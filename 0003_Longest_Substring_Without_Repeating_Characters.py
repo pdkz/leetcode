@@ -14,15 +14,16 @@ class Solution:
 
         while begin <= end and begin < nlen and end < nlen:
             v = table.get(s[end])
-
             if begin < end:
                 if v != None and v >= 0:
+                    for i in range(begin, v+1):
+                        del table[s[i]]
+
                     begin = v + 1
                     substr = s[begin:end+1]
                     
-                    table.clear()
-                    for i in range(begin, end+1):
-                        table[s[i]] = i
+                    table[s[begin]] = begin
+                    table[s[end]] = end
                 else:
                     substr += s[end]
                     table[s[end]] = end
