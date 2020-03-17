@@ -17,8 +17,6 @@ class Solution:
 
             if begin < end:
                 if v != None and v >= 0:
-                    del table[s[begin]]
-
                     begin = v + 1
                     substr = s[begin:end+1]
                     
