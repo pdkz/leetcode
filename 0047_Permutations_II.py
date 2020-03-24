@@ -1,23 +1,34 @@
 class Solution:
-    def __init__(self):
-        self.result = []
-        self.perm = []
-        
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        self.permutate(0, [], nums)
-        return self.result
-    
-    def permutate(self, n, p, nums):
-        if n >= len(nums):
-            if self.perm not in self.result:
-                self.result.append(self.perm.copy())
-            return
+        res = []
+        if len(nums) == 0:
+            return res
+
+        nums.sort()
+        visited = [False for i in range(len(nums))]
         
-        for a, i in enumerate(nums):
-            if n > 0 and a in p:
+        self.permute(nums, [], res, visited)
+        
+        return res
+    
+    def permute(self, nums, l, res, visited):
+        nlen = len(nums)
+        if len(l) == nlen:
+            res.append(l.copy())
+            return
+
+        i = 0
+        while i < nlen:
+            if visited[i]:
+                i += 1
                 continue
-            p.append(a)
-            self.perm.append(i)
-            self.permutate(n+1, p, nums)
-            self.perm.pop()
-            p.pop()
+            
+            visited[i] = True
+            l.append(nums[i])
+            self.permute(nums, l, res, visited)
+            l.pop()
+            visited[i] = False
+            
+            while i+1 < nlen and nums[i] == nums[i+1]:
+                i += 1
+            i += 1
