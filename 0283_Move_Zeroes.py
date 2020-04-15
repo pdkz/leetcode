@@ -3,14 +3,16 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        i = 0
-        c = 0
         l = len(nums)
+        if l == 0:
+            return []
         
-        while(c < l):
+        i = 0
+        while i < l:
             if nums[i] == 0:
-                del nums[i]
+                nums.pop(i)
                 nums.append(0)
+                l -= 1
             else:
                 i += 1
-            c += 1
+        return nums
