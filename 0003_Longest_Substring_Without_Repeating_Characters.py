@@ -1,19 +1,35 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        chars = collections.defaultdict(int)
-        l = len(s)
-        result_str = ''
-        result_len = 0
-        for i in range(l):
-            chars.clear()
-            for j in range(0,l-i):
-                ch = s[i+j]
-                if chars.get(ch):
-                    break
-                chars[ch] = 1
-                word_str = s[i:i+j+1]
-                word_len = len(word_str)
-                if word_len > result_len:
-                    result_str = word_str
-                    result_len = word_len
-        return result_len
+        if len(s) == 0:
+            return 0
+
+        table = collections.defaultdict(int)
+        nlen = len(s)
+        substr = s[0]
+        max_substr_length = len(substr)
+        table[substr] = 0
+
+        begin = 0
+        end = 0
+
+        while begin <= end and begin < nlen and end < nlen:
+            v = table.get(s[end])
+            if begin < end:
+                if v != None and v >= 0:
+                    for i in range(begin, v+1):
+                        del table[s[i]]
+
+                    begin = v + 1
+                    substr = s[begin:end+1]
+                    
+                    table[s[begin]] = begin
+                    table[s[end]] = end
+                else:
+                    substr += s[end]
+                    table[s[end]] = end
+            end += 1
+
+            if len(substr) > max_substr_length:
+                max_substr_length = len(substr)
+
+        return max_substr_length
