@@ -8,11 +8,8 @@ class MyCalendar:
             return True
         
         for s, e in self.cal:
-            if (start < s and end <= s) or (e <= start and e <= end):
-                continue
-            else:
+            if s < end and start < e:
                 return False
                 
         self.cal.append([start, end])
-        
         return True
