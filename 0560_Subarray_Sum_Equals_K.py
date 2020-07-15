@@ -1,17 +1,16 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
+        ht = defaultdict(int)
         l = len(nums)
-        ht = collections.defaultdict(int)
-        counter = 0
-        sum_subarray = 0
+
+        ht[0] = 1
+        count = 0
+        cumlative_sum = 0
         
-        for i in range(l):
-            sum_subarray += nums[i]
-            for v in ht.values():
-                if sum_subarray - v == k:
-                    counter += 1
-            if sum_subarray == k:
-                counter += 1
+        for i in range(0, l):
+            cumlative_sum += nums[i]
             
-            ht[i] = sum_subarray
-        return counter
+            count += ht.get(cumlative_sum - k, 0)
+            ht[cumlative_sum] += 1
+            
+        return count
