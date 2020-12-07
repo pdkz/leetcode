@@ -6,35 +6,26 @@
 
 class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
-        if head is None:
-            return None
+        if not head:
+            return head
         
-        prev_node = None
-        curr_node = head
-        next_node = head.next
+        prev = None
+        curr = head
         
-        while(curr_node is not None):
-            node = next_node
-            duplicated = 0
-            while(node is not None and node.val == curr_node.val):
-                node = node.next
-                duplicated += 1
-            if duplicated > 0:
-                if prev_node is None:
-                    curr_node = node
-                    head = curr_node
-                    if curr_node is None: break
-                    next_node = curr_node.next
+        while curr:
+            if curr.next and (curr.val == curr.next.val):
+                node = curr
+                while node and (curr.val == node.val):
+                    node = node.next
+                
+                if prev:
+                    prev.next = node
                 else:
-                    prev_node.next = node
-                    curr_node = node
-                    if curr_node is None: break
-                    next_node = curr_node.next
+                    # for example, in case [1,1,1,2,3]
+                    head = node
+                
+                curr = node
             else:
-                prev_node = curr_node
-                curr_node = curr_node.next
-                if curr_node is None: break
-                next_node = curr_node.next
-            
+                prev = curr
+                curr = curr.next
         return head
-  
