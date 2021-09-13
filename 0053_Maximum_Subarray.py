@@ -1,5 +1,5 @@
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
+    def maxSubArraySlidingWindow(self, nums: List[int]) -> int:
         l = len(nums)
 
         max_subarray = nums[0]
@@ -15,3 +15,12 @@ class Solution:
                 max_subarray = sum_subarray
 
         return max_subarray
+
+    def maxSubArrayDp(self, nums: List[int]) -> int:
+        max_subarray_sum = float('-inf')
+        subarray_sum = 0
+        for n in nums:
+            subarray_sum = max(n, n+subarray_sum)
+            if max_subarray_sum < subarray_sum:
+                max_subarray_sum = subarray_sum
+        return max_subarray_sum
