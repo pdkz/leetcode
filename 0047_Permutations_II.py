@@ -1,34 +1,26 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         res = []
-        if len(nums) == 0:
-            return res
-
+        useds = [False for i in range(len(nums))]
         nums.sort()
-        visited = [False for i in range(len(nums))]
-        
-        self.permute(nums, [], res, visited)
-        
-        return res
-    
-    def permute(self, nums, l, res, visited):
-        nlen = len(nums)
-        if len(l) == nlen:
-            res.append(l.copy())
-            return
 
-        i = 0
-        while i < nlen:
-            if visited[i]:
-                i += 1
-                continue
-            
-            visited[i] = True
-            l.append(nums[i])
-            self.permute(nums, l, res, visited)
-            l.pop()
-            visited[i] = False
-            
-            while i+1 < nlen and nums[i] == nums[i+1]:
-                i += 1
-            i += 1
+        def backtrack(res, tmp):
+            nonlocal useds
+            if len(tmp) == len(nums):
+                res.append(tmp[:])
+                return
+
+            for i, n in enumerate(nums):
+                if useds[i]:
+                    continue
+                if (i > 0 and not useds[i-1] and nums[i] == nums[i-1]):
+                    continue
+                tmp.append(n)
+                useds[i] = True
+                backtrack(res, tmp)
+                tmp.pop()
+
+                useds[i] = False
+        backtrack(res, [])
+
+        return res
