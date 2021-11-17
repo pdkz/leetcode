@@ -1,9 +1,17 @@
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        l = len(s)
-        chars = ''
-        for i in range(l):
-            ch = s[i].lower()
-            if ch.isalpha() or ch.isdecimal():
-                chars += ch
-        return chars == chars[::-1]
+        low = 0
+        high = len(s) - 1
+
+        while low < high:
+            while low < high and not s[low].isalnum():
+                low += 1
+            while low < high and not s[high].isalnum():
+                high -= 1
+
+            if s[low].lower() != s[high].lower():
+                return False
+            low += 1
+            high -= 1
+
+        return True
