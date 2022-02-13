@@ -22,4 +22,3 @@ class Solution:
                 else:
                     paths[i][j] = 0
         return paths[M-1][N-1]
-                    
