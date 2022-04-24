@@ -14,16 +14,29 @@ public:
         ListNode *prev = nullptr;
         while(current != nullptr) {
             next = current->next;
-            
+
             current->next = prev;
-            
+
             prev = current;
             current = next;
-            //printf("%d ", prev->val);   
+            //printf("%d ", prev->val);
         }
-        
+
         head = prev;
-        
+
+        return head;
+    }
+
+    ListNode* reverse_recursive(ListNode *p) {
+        ListNode *head = nullptr;
+        if (p == nullptr || p->next == nullptr) {
+            head = p;
+            return head;
+        }
+        head = reverse(p->next);
+        ListNode *temp = p->next;
+        temp->next = p;
+        p->next = nullptr;
         return head;
     }
 };
