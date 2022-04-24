@@ -27,7 +27,7 @@ public:
         return head;
     }
 
-    ListNode* reverse_recursive(ListNode *p) {
+    ListNode* reverse_recursive(ListNode* p) {
         ListNode *head = nullptr;
         if (p == nullptr || p->next == nullptr) {
             head = p;
