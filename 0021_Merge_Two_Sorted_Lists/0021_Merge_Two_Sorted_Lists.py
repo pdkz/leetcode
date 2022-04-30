@@ -1,45 +1,25 @@
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        lnode = l1
-        rnode = l2
-        node = None
-        head = None
-        prev = None
-        while(True):
-            if lnode == None and rnode == None:
-                break        
-            if lnode == None:
-                node = ListNode(rnode.val)
-                if prev is not None:
-                    prev.next = node
-                prev = node
-                rnode = rnode.next
-            elif rnode == None:
-                node = ListNode(lnode.val)
-                if prev is not None:
-                    prev.next = node
-                prev = node
-                lnode = lnode.next
-            elif lnode.val <= rnode.val:
-                node = ListNode(lnode.val)
-                if prev is not None:
-                    prev.next = node
-                prev = node
-                lnode = lnode.next
-            elif lnode.val > rnode.val:
-                node = ListNode(rnode.val)
-                if prev is not None:
-                    prev.next = node
-                prev = node
-                rnode = rnode.next
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
 
-            if head == None:
-                head = prev
-        
-        return head
+        while list1 and list2:
+            if list1.val < list2.val:
+                tail.next = list1
+                list1 = list1.next
+            else:
+                tail.next = list2
+                list2 = list2.next
+            tail = tail.next
+
+        if list1:
+            tail.next = list1
+        elif list2:
+            tail.next = list2
+
+        return dummy.next
