@@ -17,10 +17,9 @@ class Solution:
         return max_subarray
 
     def maxSubArrayDp(self, nums: List[int]) -> int:
-        max_subarray_sum = float('-inf')
-        subarray_sum = 0
+        subarray_sum, max_subarray = 0, float('-inf')
         for n in nums:
-            subarray_sum = max(n, n+subarray_sum)
-            if max_subarray_sum < subarray_sum:
-                max_subarray_sum = subarray_sum
-        return max_subarray_sum
+            subarray_sum += n
+            subarray_sum = max(subarray_sum, n)
+            max_subarray = max(max_subarray, subarray_sum)
+        return max_subarray
