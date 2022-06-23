@@ -23,6 +23,9 @@ public:
                 else if (a == s) {
                     dp[a] = 1;
                 }
+                else{
+                    break;
+                }
             }
         }
         return dp[n];

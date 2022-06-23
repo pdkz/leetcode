@@ -12,4 +12,6 @@ class Solution:
                     dp[a] = min(dp[a - perfect_sqrt] + 1, dp[a])
                 elif a == perfect_sqrt:
                     dp[a] = 1
+                else:
+                    break
         return dp[-1]
