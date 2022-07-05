@@ -1,20 +1,15 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        tail = digits[-1]
-        pos  = -1
-        
-        elements = []
-        if tail == 9:
-            for i, d in enumerate(digits[::-1]):                
-                if d != 9:
-                    pos = len(digits) - 1 - i                    
-                    break
-                elements.append(0)
-                digits[pos-1] += 1
-        else:
-            tail += 1
-            elements = [tail]
-            
-        l = digits[:pos] 
-        l += elements
-        return l
+        carry, N = 0, len(digits)
+        digits[N-1] += 1
+
+        for i in range(N-1,-1,-1):
+            if carry == 1:
+                digits[i] += 1
+            if digits[i] > 9:
+                carry, digits[i] = 1, 0
+            else:
+                carry = 0
+        if carry:
+            digits.insert(0, 1)
+        return digits
